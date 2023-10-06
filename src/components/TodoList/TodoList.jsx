@@ -9,7 +9,7 @@ const{list,setList}=useContext(TodoContext)
 return (
  <div>
     {list.length > 0 && list.map(todo=><Todo key={todo.id} 
-     isFinished={todo.isFinished}
+     isFinished={todo.Finished}
      id={todo.id} 
      todoData={todo.todoData}
      changeFinished={(isFinished)=>{
@@ -19,8 +19,25 @@ return (
             }
             return t;
         });
-        updateList(updateList);
+        setList(updateList);
      }}
+
+     onDelete={()=>{
+        const updateList=list.filter(t=>
+            t.id!==todo.id)
+        setList(updateList);
+     }}
+     onEdit={(todoText)=>{
+        const updateList=list.map(t=>{
+            if(t.id===todo.id){
+                todo.todoData=todoText;
+            }
+            return t;
+        });
+        setList(updateList);
+     }}
+
+
       />)}
     </div>
 )
